@@ -42,3 +42,7 @@ wheels/
 .idea/
 *.swp
 *.swo
+
+#documents
+documents/*
+!documents/(sample) How-To_ Train Your Dragon.docx
