@@ -10,12 +10,12 @@ def embed_text(text: str) -> list[float]:
     return embedding.tolist()
 
 
-def embed_document(document: list[dict]) -> list[dict]:
-    texts = [f"{chunk['heading']}\n{chunk['text']}" for chunk in document]
+def embed_chunks(chunks: list[dict]) -> list[dict]:
+    texts = [f"{chunk['heading']}\n{chunk['text']}" for chunk in chunks]
 
     embeddings = model.encode(texts)
 
-    for document, embedding in zip(document, embeddings):
-        document["embedding"] = embedding.tolist()
+    for chunk, embedding in zip(chunks, embeddings):
+        chunk["embedding"] = embedding.tolist()
 
-    return document
+    return chunks
