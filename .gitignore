@@ -43,6 +43,9 @@ wheels/
 *.swp
 *.swo
 
-#documents
+# documents
 documents/*
 !documents/(sample) How-To_ Train Your Dragon.docx
+
+# ChromaDB
+chroma_db/
