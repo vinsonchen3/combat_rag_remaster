@@ -6,7 +6,10 @@ db_path = project_root / "chroma_db"
 
 client = chromadb.PersistentClient(path=str(db_path))
 
-collection = client.get_or_create_collection(name="combat_robotics")
+collection = client.get_or_create_collection(
+    name="combat_robotics",
+    metadata={"hnsw:space": "cosine"},
+)
 
 
 def upsert_documents(
