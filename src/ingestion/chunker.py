@@ -8,9 +8,10 @@ def chunk_document(path: Path) -> list[dict]:
 
     return [
         {
+            "id": f"{path.name}:{i}",
             "source": path.name,
             "heading": section["heading"],
             "text": "\n".join(section["content"]),
         }
-        for section in sections
+        for i, section in enumerate(sections)
     ]
