@@ -14,9 +14,14 @@ def ingest_documents() -> None:
         chunks = chunk_document(path)
         chunks = embed_chunks(chunks)
 
-        ids = [chunk["id"] for chunk in chunks]
-        documents = [f"{chunk['heading']}\n{chunk['text']}" for chunk in chunks]
-        embeddings = [chunk["embedding"] for chunk in chunks]
+        ids = []
+        documents = []
+        embeddings = []
+
+        for chunk in chunks:
+            ids.append(chunk["id"])
+            documents.append(chunk['text'])
+            embeddings.append(chunk["embedding"])
 
         metadatas = [
             {"source": chunk["source"], "heading": chunk["heading"]} for chunk in chunks
