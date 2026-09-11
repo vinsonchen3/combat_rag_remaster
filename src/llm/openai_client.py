@@ -12,8 +12,8 @@ def build_context(chunks: list[dict]) -> str:
     """Format retrieved chunks into context for the LLM."""
 
     return "\n\n".join(
-        f"Source: {chunk['metadata']['source']}"
-        f"Heading: {chunk['metadata']['heading']}"
+        f"Source: {chunk['metadata']['source']}\n"
+        f"Heading: {chunk['metadata']['heading']}\n"
         f"{chunk['text']}"
         for chunk in chunks
     )
