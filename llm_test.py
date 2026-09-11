@@ -22,5 +22,15 @@ def test_generate_answer():
 
     assert answer
 
+    answer = generate_answer(
+        "How do I train a dragon?",
+        chunks,
+    )
+
+    print("\nChatGPT response:")
+    print(answer)
+
+    assert answer
+
 if __name__ == "__main__":
     test_generate_answer()
