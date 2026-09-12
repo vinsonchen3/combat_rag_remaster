@@ -48,7 +48,7 @@ def create_app_mention_handler(retriever):
         try:
             messages = get_thread_messages(
                 client=client,
-                channel_id=channel_id,
+                channel=channel_id,
                 thread_ts=thread_ts,
             )
 
