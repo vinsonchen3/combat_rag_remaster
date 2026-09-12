@@ -10,7 +10,7 @@ def get_thread_messages(
     return response["messages"]
 
 
-def build_thread_context(messages: list[dict]) -> str:
+def build_conversation_context(messages: list[dict]) -> str:
     lines = []
 
     for message in messages:

@@ -6,7 +6,7 @@ from slack_bolt.adapter.socket_mode import SocketModeHandler
 
 from src.slack.context import (
     get_thread_messages,
-    build_thread_context,
+    build_conversation_context,
 )
 
 load_dotenv()
@@ -33,7 +33,7 @@ def handle_mention(event, client, say):
         thread_ts=thread_ts,
     )
 
-    thread_context = build_thread_context(messages)
+    thread_context = build_conversation_context(messages)
 
     print("\n" + "=" * 50)
     print("THREAD CONTEXT")
