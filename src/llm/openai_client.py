@@ -8,7 +8,7 @@ MODEL = "gpt-5.6-luna"
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 
-def build_context(chunks: list[dict]) -> str:
+def build_document_context(chunks: list[dict]) -> str:
     """Format retrieved chunks into context for the LLM."""
 
     return "\n\n".join(
@@ -26,7 +26,7 @@ def generate_answer(
 ) -> str:
     """Generate an answer using the retrieved chunks as context."""
 
-    chunk_context_section = build_context(chunks)
+    chunk_context_section = build_document_context(chunks)
     conversation_context_section = ""
 
     if conversation_context:
