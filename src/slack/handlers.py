@@ -19,7 +19,7 @@ def remove_bot_mention(text: str) -> str:
 
 def create_app_mention_handler(retriever):
     """
-    Create a Slack app_mention handler with access to the retriever.
+    Create a Slack app_mention handler with access to the retriever for dependency injection.
     """
 
     def handle_app_mention(body, client, logger):
