@@ -47,6 +47,19 @@ def generate_answer(
             "If the documentation does not contain enough information to "
             "answer the question, say that you don't know based on the "
             "provided documents. Do not invent information."
+            """
+            Format your response for Slack using Slack-compatible mrkdwn.
+
+            Use:
+            - *bold* for emphasis
+            - `code` for commands, filenames, or code
+            - numbered lists for procedures
+            - bullet lists for multiple items
+
+            Do NOT use Markdown headings such as #, ##, or ###.
+            Do NOT use Markdown bold syntax such as **bold**.
+            Keep responses concise and easy to read in Slack.
+            """
         ),
         input=(
             f"Documentation context:\n{chunk_context_section}\n"
