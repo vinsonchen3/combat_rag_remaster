@@ -19,19 +19,6 @@ def build_context(chunks: list[dict]) -> str:
     )
 
 
-def build_conversation_context(messages: list[dict]) -> str:
-    """Format Slack thread messages into conversational context."""
-    lines = []
-
-    for message in messages:
-        user = message.get("user", "Unknown")
-        text = message.get("text", "")
-
-        lines.append(f"{user}: {text}")
-
-    return "\n".join(lines)
-
-
 def generate_answer(
     question: str,
     chunks: list[dict],
