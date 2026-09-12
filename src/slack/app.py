@@ -14,7 +14,6 @@ load_dotenv()
 def create_app() -> App:
     slack_app = App(
         token=os.environ["SLACK_BOT_TOKEN"],
-        app_token=os.environ["SLACK_APP_TOKEN"],
     )
 
     retriever = Retriever(
