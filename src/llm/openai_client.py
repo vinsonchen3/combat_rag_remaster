@@ -1,4 +1,5 @@
 import os
+import re
 from dotenv import load_dotenv
 from openai import OpenAI
 
@@ -19,13 +20,25 @@ def build_document_context(chunks: list[dict]) -> str:
     )
 
 
-def build_source_list(chunks: list[dict]) -> str:
+def build_source_list(
+    chunks: list[dict],
+    cited_numbers: set[int],
+) -> str:
     """Format retrieved chunks into a numbered source list."""
 
     return "\n".join(
         f"[{i}] `{chunk['metadata']['source']}` — " f"{chunk['metadata']['heading']}"
         for i, chunk in enumerate(chunks, start=1)
+        if i in cited_numbers
     )
+
+
+def get_cited_source_numbers(answer: str) -> set[int]:
+    """Return valid source numbers referenced in the generated answer."""
+
+    cited_numbers = {int(num) for num in re.findall(r"\[(\d+)\]", answer)}
+
+    return cited_numbers
 
 
 def generate_answer(
@@ -56,7 +69,6 @@ def generate_answer(
             "If the documentation does not contain enough information to "
             "answer the question, say that you don't know based on the "
             "provided documents. Do not invent information."
-
             "SOURCE CITATIONS:\n"
             "The documentation context contains numbered sources such as "
             "[1], [2], and [3]. "
@@ -71,7 +83,6 @@ def generate_answer(
             "Do not create, modify, or guess source numbers. "
             "Do not put citations in a separate citation section; "
             "place them directly after the relevant sentence.\n\n"
-
             """
             Format your response for Slack using Slack-compatible mrkdwn.
 
@@ -93,6 +104,9 @@ def generate_answer(
         ),
     )
 
-    answer =  response.output_text
-    source_list = build_source_list(chunks)
+    answer = response.output_text
+    cited_numbers = get_cited_source_numbers(answer)
+    source_list = build_source_list(chunks, cited_numbers)
+    if not source_list:
+        return f"{answer}"
     return f"{answer}\n\n *Sources:*\n{source_list}"
