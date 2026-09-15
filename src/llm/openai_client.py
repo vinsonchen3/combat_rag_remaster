@@ -30,7 +30,7 @@ def generate_answer(
     conversation_context_section = ""
 
     if conversation_context:
-        conversation_context = (
+        conversation_context_section = (
             "\n\nConversation history from the Slack thread:\n"
             f"{conversation_context}"
         )
