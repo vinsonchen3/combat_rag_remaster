@@ -19,6 +19,15 @@ def build_document_context(chunks: list[dict]) -> str:
     )
 
 
+def build_source_list(chunks: list[dict]) -> str:
+    """Format retrieved chunks into a numbered source list."""
+
+    return "\n".join(
+        f"[{i}] `{chunk['metadata']['source']}` — " f"{chunk['metadata']['heading']}"
+        for i, chunk in enumerate(chunks, start=1)
+    )
+
+
 def generate_answer(
     question: str,
     chunks: list[dict],
@@ -47,6 +56,22 @@ def generate_answer(
             "If the documentation does not contain enough information to "
             "answer the question, say that you don't know based on the "
             "provided documents. Do not invent information."
+
+            "SOURCE CITATIONS:\n"
+            "The documentation context contains numbered sources such as "
+            "[1], [2], and [3]. "
+            "When you make a factual claim that is supported by the "
+            "documentation, cite the supporting source immediately after "
+            "the sentence using its number, for example: "
+            "'The motor requires a 12V supply.[1]' "
+            "If a sentence is supported by multiple sources, cite all "
+            "relevant sources, for example [1][3]. "
+            "Only use citation numbers that appear in the provided "
+            "documentation context. "
+            "Do not create, modify, or guess source numbers. "
+            "Do not put citations in a separate citation section; "
+            "place them directly after the relevant sentence.\n\n"
+
             """
             Format your response for Slack using Slack-compatible mrkdwn.
 
@@ -68,4 +93,6 @@ def generate_answer(
         ),
     )
 
-    return response.output_text
+    answer =  response.output_text
+    source_list = build_source_list(chunks)
+    return f"{answer}\n\n *Sources:*\n{source_list}"
