@@ -77,7 +77,7 @@ def create_app_mention_handler(retriever):
             client.chat_postMessage(
                 channel=channel_id,
                 thread_ts=thread_ts,
-                text=("Sorry, I ran into an error while processing that " "question."),
+                text=("Sorry, I ran into an error while processing that question."),
             )
 
     return handle_app_mention
