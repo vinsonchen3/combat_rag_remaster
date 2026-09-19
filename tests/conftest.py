@@ -5,16 +5,17 @@ import pytest
 def sample_sections():
     return [
         {
-            "id": "section-1",
-            "source": "chassis.docx",
             "heading": "Motor Mounting",
-            "text": "Mount the motors using four M3 screws.",
+            "content": [
+                "Mount the motors using four M3 screws.",
+                "Secure the motor before attaching the gearbox.",
+            ],
         },
         {
-            "id": "section-2",
-            "source": "battery.docx",
             "heading": "Battery Selection",
-            "text": "Use a 4S LiPo battery for the competition robot.",
+            "content": [
+                "Use a 4S LiPo battery for the competition robot.",
+            ],
         },
     ]
 
@@ -23,14 +24,17 @@ def sample_sections():
 def sample_chunks():
     return [
         {
-            "id": "section-1",
-            "source": "chassis.docx",
+            "id": "test.docx:0",
+            "source": "test.docx",
             "heading": "Motor Mounting",
-            "text": "Mount the motors using four M3 screws.",
+            "text": (
+                "Mount the motors using four M3 screws.\n"
+                "Secure the motor before attaching the gearbox."
+            ),
         },
         {
-            "id": "section-2",
-            "source": "battery.docx",
+            "id": "test.docx:1",
+            "source": "test.docx",
             "heading": "Battery Selection",
             "text": "Use a 4S LiPo battery for the competition robot.",
         },
