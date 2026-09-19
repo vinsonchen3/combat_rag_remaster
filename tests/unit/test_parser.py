@@ -50,8 +50,9 @@ def test_docx_to_sections_ignores_empty_paragraphs(tmp_path):
     document = Document()
     document.add_heading("Motor Mounting", level=1)
     document.add_paragraph("")
-    document.add_paragraph("")
+    document.add_paragraph("       ")
     document.add_paragraph("Mount the motors.")
+    document.add_paragraph("")
     document.save(path)
 
     sections = docx_to_sections(path)
