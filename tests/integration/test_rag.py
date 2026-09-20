@@ -4,11 +4,11 @@ from src.llm import openai_client
 
 def test_answer_question_runs_retrieval_and_generation(
     mocker,
-    sample_chunks,
+    sample_retrieved_chunks,
 ):
     mock_retriever = mocker.Mock()
 
-    mock_retriever.retrieve.return_value = sample_chunks
+    mock_retriever.retrieve.return_value = sample_retrieved_chunks
 
     fake_response = mocker.Mock()
     fake_response.output_text = (
@@ -38,16 +38,16 @@ def test_answer_question_runs_retrieval_and_generation(
     assert result == (
         "Use a 4S LiPo battery for the competition robot.[2]\n\n"
         " *Sources:*\n"
-        "[2] `test.docx` — Battery Selection"
+        "[2] `battery.docx` — Battery Selection"
     )
 
 
 def test_answer_question_passes_conversation_context(
     mocker,
-    sample_chunks,
+    sample_retrieved_chunks,
 ):
     mock_retriever = mocker.Mock()
-    mock_retriever.retrieve.return_value = sample_chunks
+    mock_retriever.retrieve.return_value = sample_retrieved_chunks
 
     fake_response = mocker.Mock()
     fake_response.output_text = "Use a 4S battery.[2]"
@@ -74,7 +74,7 @@ def test_answer_question_passes_conversation_context(
     assert result == (
         "Use a 4S battery.[2]\n\n"
         " *Sources:*\n"
-        "[2] `test.docx` — Battery Selection"
+        "[2] `battery.docx` — Battery Selection"
     )
 
     call_kwargs = mock_client.responses.create.call_args.kwargs
@@ -84,10 +84,10 @@ def test_answer_question_passes_conversation_context(
 
 def test_answer_question_returns_answer_without_sources_when_no_citations(
     mocker,
-    sample_chunks,
+    sample_retrieved_chunks,
 ):
     mock_retriever = mocker.Mock()
-    mock_retriever.retrieve.return_value = sample_chunks
+    mock_retriever.retrieve.return_value = sample_retrieved_chunks
 
     fake_response = mocker.Mock()
     fake_response.output_text = (
