@@ -1,0 +1,9 @@
+chromadb
+sentence-transformers
+openai
+slack-bolt
+python-docx
+python-dotenv
+
+pytest
+pytest-mock
