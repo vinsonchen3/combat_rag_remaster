@@ -6,7 +6,17 @@ from openai import OpenAI
 load_dotenv()
 
 MODEL = "gpt-5.6-luna"
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+client = None
+
+
+def get_client():
+    """Return the OpenAI client, creating it when first needed."""
+    global client
+
+    if client is None:
+        client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+
+    return client
 
 
 def build_document_context(chunks: list[dict]) -> str:
@@ -57,7 +67,7 @@ def generate_answer(
             f"{conversation_context}"
         )
 
-    response = client.responses.create(
+    response = get_client().responses.create(
         model=MODEL,
         instructions=(
             "You are a helpful assistant for Cornell Combat Robotics. "
