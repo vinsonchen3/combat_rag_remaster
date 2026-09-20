@@ -19,7 +19,7 @@ def create_app() -> App:
     retriever = Retriever(
         collection=collection,
         model=model,
-        top_k=4,
+        top_k=3,
     )
 
     handle_app_mention = create_app_mention_handler(retriever=retriever)
