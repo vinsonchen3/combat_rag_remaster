@@ -39,3 +39,23 @@ def sample_chunks():
             "text": "Use a 4S LiPo battery for the competition robot.",
         },
     ]
+
+
+@pytest.fixture
+def sample_retrieved_chunks():
+    return [
+        {
+            "text": "Mount the motors.",
+            "metadata": {
+                "source": "chassis.docx",
+                "heading": "Motor Mounting",
+            },
+        },
+        {
+            "text": "Use a 4S battery.",
+            "metadata": {
+                "source": "battery.docx",
+                "heading": "Battery Selection",
+            },
+        },
+    ]
